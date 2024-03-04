@@ -1,8 +1,11 @@
 <?php
-include '../layouts/header.php';
+include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
+?>
+<?php
+$currentPage = 'books';
 ?>
 
-<!-- Content -->
+<!-- CONTENT -->
 
 <?php
-include '../layouts/footer.php';
+include '/../xampp/htdocs/LibraryManagement/views/layouts/footer.php';
