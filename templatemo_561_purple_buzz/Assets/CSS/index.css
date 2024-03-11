@@ -1,0 +1,26 @@
+body {
+    background-color: #E1F5FE; /* Light blue background */
+    color: #333; /* Dark text color */
+}
+
+.container {
+    background-color: #FFF; /* White container background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the container */
+    margin-top: 20px; /* Space at the top */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow for the container */
+}
+
+.card {
+    margin-bottom: 20px; /* Space between cards */
+}
+
+/* Custom styling for the system name */
+.system-name {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose an appropriate font */
+    font-size: 32px; /* Adjust the font size as needed */
+    font-weight: bold;
+    color: #FFA500; /* Light orange color */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add spacing at the bottom */
+}

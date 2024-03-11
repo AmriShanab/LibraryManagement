@@ -1,0 +1,40 @@
+body {
+    background-color: #f5f5f5; /* Light Gray background */
+}
+
+.container {
+    background-color: #fff; /* White background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f58700; /* Light Orange background for card header */
+    color: #fff; /* White text color */
+    border-bottom: none; /* Remove border */
+}
+
+.btn-primary {
+    background-color: #f58700; /* Light Orange button color */
+    border-color: #f58700; /* Light Orange border color */
+}
+
+.btn-primary:hover {
+    background-color: #e27800; /* Darker Orange on hover */
+    border-color: #e27800; /* Darker Orange border on hover */
+}
+
+.btn-link {
+    color: #f58700; /* Light Orange link color */
+}
+
+.btn-link:hover {
+    color: #e27800; /* Darker Orange link color on hover */
+}
