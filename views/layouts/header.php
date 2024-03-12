@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../../assets/css/templatemo.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../Assets/CSS/custom.css">
+    <link rel="stylesheet" href="../../Assets/CSS/card.css">
 <!--
     
 TemplateMo 561 Purple Buzz
@@ -56,7 +57,7 @@ https://templatemo.com/tm-561-purple-buzz
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/users.php">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/auth/login.php">log-out</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
                         </li>
                     </ul>
                 </div>

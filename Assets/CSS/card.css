@@ -1,0 +1,13 @@
+.books {
+    width: 350;
+    height: auto;
+}
+
+.btn1 {
+    background-color: brown;
+    color: wheat;
+}
+.fixed-size-img {
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure the image covers the specified height */
+}

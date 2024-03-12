@@ -66,6 +66,57 @@
     
         return $users;
     }
-  
+   // Function to get all books
+   function getAllBooks($conn) {
+    $query = "SELECT * FROM books";
+    $result = mysqli_query($conn, $query);
+
+    $books = [];
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $books[] = $row;
+        }
+    }
+
+    return $books;
+}
+// Function to get book data by ID
+function getBookData($conn, $bookId) {
+    $bookData = array();
+
+    $query = "SELECT * FROM books WHERE book_id = " . $bookId;
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        $bookData = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+    }
+
+    return $bookData;
+}
+
+
+// // Function to add a new book to the database
+// function addBook($conn, $title, $author, $genre)
+// {
+//     $sql = "INSERT INTO books (title, author, genre) VALUES ('$title', '$author', '$genre')";
+//     if (mysqli_query($conn, $sql)) {
+//         return "Book added successfully";
+//     } else {
+//         return "Error adding book: " . mysqli_error($conn);
+//     }
+// }
+
+// Function to delete a book from the database
+function deleteBook($conn, $book_id)
+{
+    $sql = "DELETE FROM books WHERE book_id = $book_id";
+    if (mysqli_query($conn, $sql)) {
+        return "Book deleted successfully";
+    } else {
+        return "Error deleting book: " . mysqli_error($conn);
+    }
+}
     
     
