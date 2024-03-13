@@ -18,7 +18,7 @@ if (!empty($users)) {}
 <body>
     <div class="container mt-5">
         <h2>User List</h2>
-        <table class="table">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>User ID</th>
@@ -93,8 +93,7 @@ if (!empty($users)) {}
         </div>
     </div>
 
-    <!-- Edit User Modal -->
-    <!-- ... (unchanged code for Edit User Modal) ... -->
+    
 
     <!-- JavaScript to handle Edit User modal -->
     <script>

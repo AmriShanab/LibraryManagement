@@ -119,4 +119,12 @@ function deleteBook($conn, $book_id)
     }
 }
     
-    
+function getAllTransactions($conn) {
+    $query = "SELECT t.transaction_id, t.user_id, u.username, b.title, t.transaction_type, t.amount, t.transaction_date, t.status 
+              FROM transactions t 
+              JOIN users u ON t.user_id = u.user_id 
+              JOIN books b ON t.book_id = b.book_id";
+    $result = mysqli_query($conn, $query);
+    $transactions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return $transactions;
+}

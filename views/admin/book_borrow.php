@@ -93,6 +93,36 @@ function returnBook($conn, $borrowId, $returnDate) {
         return "Failed to return book. Unable to update return date.";
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
+    $bookId = $_POST['bookId'];
+    $userId = $_POST['user_id'];
+    $borrowDate = $_POST['borrow_date'];
+    $returnDate = $_POST['return_date'];
+
+    // Calculate the number of days between borrow and return dates
+    $borrowDateObj = new DateTime($borrowDate);
+    $returnDateObj = new DateTime($returnDate);
+    $interval = $returnDateObj->diff($borrowDateObj);
+    $days = $interval->days;
+
+    // Calculate the total rate (rate per day = $2)
+    $ratePerDay = 2;
+    $totalRate = $days * $ratePerDay;
+
+    // Display the rate
+    $rateMessage = "Total rate for borrowing: $" . $totalRate . " for " . $days . " days";
+
+    // Store borrowing details after payment (assuming payment is successful)
+    $result = borrowBook($conn, $bookId, $userId, $borrowDate, $returnDate);
+    echo $result; // Output the result of the borrowing process
+
+    // Insert transaction details into the transaction table
+    $insertTransactionQuery = "INSERT INTO transactions (user_id, book_id, amount) VALUES (?, ?, ?)";
+    $insertTransactionStmt = mysqli_prepare($conn, $insertTransactionQuery);
+    mysqli_stmt_bind_param($insertTransactionStmt, 'iii', $userId, $bookId, $totalRate);
+    mysqli_stmt_execute($insertTransactionStmt);
+    mysqli_stmt_close($insertTransactionStmt);
+}
 
 
 // Fetch all books and users
@@ -106,21 +136,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
     $borrowDate = $_POST['borrow_date'];
     $returnDate = $_POST['return_date'];
 
-    $result = borrowBook($conn, $bookId, $userId, $borrowDate, $returnDate);
-    echo $result;
-}
+    // Calculate the number of days between borrow and return dates
+    $borrowDateObj = new DateTime($borrowDate);
+    $returnDateObj = new DateTime($returnDate);
+    $interval = $returnDateObj->diff($borrowDateObj);
+    $days = $interval->days;
 
-// Check if the form is submitted for returning a book
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['return'])) {
-    $borrowId = $_POST['borrow_id'];
-    $returnDate = $_POST['actual_return_date'];
+    // Calculate the total rate (rate per day = $2)
+    $ratePerDay = 2;
+    $totalRate = $days * $ratePerDay;
 
-    $result = returnBook($conn, $borrowId, $returnDate);
-    echo $result;
+    // Display the rate
+    $rateMessage = "Total rate for borrowing: $" . $totalRate . " for " . $days . " days";
 }
 
 include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,6 +167,7 @@ include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
     <!-- Borrow Book Form -->
     <form method="post" action="book_borrow.php">
         <h2>Borrow a Book</h2>
+        <!-- Replace the user and book select fields in your book_borrow.php with the following code -->
         <div class="form-group">
             <label for="bookId">Select a Book:</label>
             <select name="bookId" id="bookId" class="form-control" required>
@@ -155,24 +188,37 @@ include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
 
         <div class="form-group">
             <label for="borrow_date">Borrow Date:</label>
-            <input type="date" class="form-control" name="borrow_date" required>
+            <input type="date" class="form-control" name="borrow_date" id="borrow_date" required>
         </div>
         <div class="form-group">
             <label for="return_date">Return Date:</label>
-            <input type="date" class="form-control" name="return_date" required>
+            <input type="date" class="form-control" name="return_date" id="return_date" required>
         </div>
-        <button type="submit" class="btn btn-primary" name="borrow">Borrow Book</button>
+        <!-- Display the rate -->
+        <div id="rateMessage"><?php echo isset($rateMessage) ? $rateMessage : ''; ?></div>
+        <!-- Payment button -->
+        <button type="submit" class="btn rounded-pill px-4 btn-outline-primary light-300" name="borrow">Borrow Book</button>
+     
     </form>
 </div>
+<a href="all_book_borrow_list.php" class="btn rounded-pill px-4 btn-outline-primary light-300 ">View All Book Borrow Records</a>
 <br>
-<a href="all_book_borrow_list.php" class="btn btn-info mt-3">View All Book Borrows</a>
 
-</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+<script>
+    // Calculate rate when dates are changed
+    $('#borrow_date, #return_date').change(function () {
+        var borrowDate = new Date($('#borrow_date').val());
+        var returnDate = new Date($('#return_date').val());
+        var days = Math.floor((returnDate - borrowDate) / (1000 * 60 * 60 * 24));
+        var ratePerDay = 2;
+        var totalRate = days * ratePerDay;
+        $('#rateMessage').text('Total rate for borrowing: $' + totalRate + ' for ' + days + ' days');
+    });
+</script>
 </html>
 
 <?php
