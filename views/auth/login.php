@@ -4,18 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../Assets/CSS/style.css">
     <title>Login - Library Management System</title>
-    <!-- Include your custom CSS and other dependencies here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS styles */
+        .card {
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .btn-register {
+            color: #007bff;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header text-center">
                         <h2>Login</h2>
                     </div>
                     <div class="card-body">
@@ -28,10 +44,10 @@
                                 <label for="password">Password:</label>
                                 <input type="password" name="password" class="form-control" required>
                             </div>
-                            <button type="submit" name="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" name="submit" class="btn btn-primary btn-block">Login</button>
                         </form>
-                        <div class="mt-3">
-                            <p>Don't have an account? <a href="../auth/user_registration.php" class="btn btn-link">Register</a></p>
+                        <div class="text-center mt-3">
+                            <p>Don't have an account? <a href="../auth/user_registration.php" class="btn-register">Register</a></p>
                         </div>
                     </div>
                 </div>
@@ -45,6 +61,7 @@
 </body>
 
 </html>
+
 
 <?php
 require '../../config.php';  // Adjust the relative path as needed
