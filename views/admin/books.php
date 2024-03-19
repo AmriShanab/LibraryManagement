@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addBook'])) {
     addBook($conn, $isbn, $title, $author, $genre, $quantity);
 
     // Reload the page using JavaScript after adding a book
-    echo '<script type="text/javascript">location.reload();</script>';
+    // echo '<script type="text/javascript">location.reload();</script>';
 }
 
 // Check if a search query is provided

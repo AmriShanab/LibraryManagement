@@ -1,3 +1,6 @@
+<?php
+include '../../config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,9 +65,8 @@
 
 </html>
 
-
 <?php
-require '../../config.php';  // Adjust the relative path as needed
+  // Adjust the relative path as needed
 
 if (isset($_POST["submit"])) {
     $username = $_POST['username'];
@@ -72,14 +74,14 @@ if (isset($_POST["submit"])) {
 
     $query = "SELECT * FROM users WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
-
+    var_dump($results);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password'])) {
             // Password is correct, redirect to dashboard or home page
             header("Location: ../index.php");
             exit();
-        } else {
+        } else {    
             // Password is incorrect
             echo '<script>alert("Incorrect password. Please try again.");</script>';
         }

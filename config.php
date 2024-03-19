@@ -128,3 +128,10 @@ function getAllTransactions($conn) {
     $transactions = mysqli_fetch_all($result, MYSQLI_ASSOC);
     return $transactions;
 }
+
+
+
+
+// Close the database connection
+//mysqli_close($conn);
+?>

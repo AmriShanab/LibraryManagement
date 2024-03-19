@@ -24,7 +24,7 @@ $transactions = getAllTransactions($conn);
                     <th>Transaction ID</th>
                     <th>Username</th>
                     <th>Book Title</th>
-                    <th>Transaction Type</th>
+                    
                     <th>Amount</th>
                     <th>Transaction Date</th>
                     <th>Status</th>
@@ -37,16 +37,18 @@ $transactions = getAllTransactions($conn);
                         <td><?= $transaction['transaction_id'] ?></td>
                         <td><?= $transaction['username'] ?></td>
                         <td><?= $transaction['title'] ?></td>
-                        <td><?= $transaction['transaction_type'] ?></td>
                         <td><?= $transaction['amount'] ?></td>
                         <td><?= $transaction['transaction_date'] ?></td>
                         <td>
-                            <?php if ($transaction['status'] === 'pending') : ?>
-                                <span class="badge badge-danger"><?= $transaction['status'] ?>>Pending</span>
+                            <?php if ($transaction['status'] === 'Success') : ?>
+                                <span class="badge badge-success"><?= $transaction['status'] ?></span>
+                            <?php elseif ($transaction['status'] === 'Pending') : ?>
+                                <span class="badge badge-danger"><?= $transaction['status'] ?></span>
                             <?php else : ?>
-                                <?= $transaction['status'] ?>
+                                <span class="badge bg-info"><?= $transaction['status'] ?></span>
                             <?php endif; ?>
                         </td>
+
                         <td>
                             <button class="btn btn-sm btn-info m-2 payment-modal" data-userid="<?= $transaction['user_id'] ?>" data-username="<?= $transaction['username'] ?>" data-booktitle="<?= $transaction['title'] ?>" data-amount="<?= $transaction['amount'] ?>" data-transactionid="<?= $transaction['transaction_id'] ?>">Pay</button>
                             <button class="btn btn-sm btn-primary m-2 invoice-modal">Invoice</button>
@@ -81,8 +83,8 @@ $transactions = getAllTransactions($conn);
                             <label for="amount">Amount:</label>
                             <input type="text" class="form-control" id="amount" readonly autocomplete="amount">
                         </div>
-                        <!-- Hidden input field for user_id -->
-                        <input type="hidden" id="user_id" name="user_id">
+                        <!-- Hidden input field for transaction_id -->
+                        <input type="hidden" id="transaction_id" name="transaction_id">
                         <button type="button" class="btn btn-primary" id="payNowBtn">Pay Now</button>
                     </form>
                 </div>
@@ -100,24 +102,29 @@ $transactions = getAllTransactions($conn);
 
     <script>
         $(document).ready(function() {
+            // Check if the payment modal button is clicked
             $('.payment-modal').click(function() {
-                var userId = $(this).data('userid');
+                console.log("Payment modal button clicked"); // Check if this log appears in the console
+                var userId = $(this).data('userid'); // Retrieve userId using $(this)
                 var username = $(this).data('username');
                 var booktitle = $(this).data('booktitle');
                 var amount = $(this).data('amount');
-                var transactionId = $(this).data('transactionid'); // Retrieve transaction_id
+                var transactionId = $(this).data('transactionid'); // Retrieve transaction ID
+
+                // Populate form fields with data
                 $('#username').val(username);
                 $('#booktitle').val(booktitle);
                 $('#amount').val(amount);
-                $('#user_id').val(userId); // Set user_id in the hidden input field
+                $('#transaction_id').val(transactionId); // Assign transaction ID to the hidden input
+
+                // Open the payment modal
                 $('#paymentModal').modal('show');
-                $('#payNowBtn').attr('data-transactionid', transactionId); // Set transaction_id for payment button
             });
 
-            $('#payNowBtn').click(function() {
-                console.log("Pay Now button clicked");
-                var userId = $('#user_id').val();
-                var transactionId = $(this).data('transactionid'); // Retrieve transaction_id
+            $('#payNowBtn').click(function(e) {
+                e.preventDefault(); // Prevent form submission
+                var userId = $('#username').val(); // Retrieve user ID from the payment modal
+                var transactionId = $('#transaction_id').val(); // Retrieve transaction ID from hidden input
                 $.ajax({
                     type: 'POST',
                     url: 'update_status.php',
@@ -126,16 +133,30 @@ $transactions = getAllTransactions($conn);
                         transaction_id: transactionId
                     },
                     success: function(response) {
-                        console.log("AJAX request successful", response);
-                        $('#status_' + userId).text('successful');
-                        $('#paymentModal').modal('hide');
+                        // Check if the response is valid
+                        if (response && response.status === 'success') {
+                            // Update the status in the table
+                            // $('td[data-transactionid="' + transactionId + '"]').siblings('td:nth-child(7)').find('.badge').removeClass('bg-danger').addClass('bg-success').text('Success');
+                            // Close the payment modal
+                        } else {
+                            // Handle error if status update failed
+                            $('#paymentModal').modal('hide');
+                            window.location.reload();
+                        }
                     },
                     error: function(xhr, status, error) {
-                        console.log("AJAX request failed:", error);
+                        console.error("AJAX request failed:", error);
                         // Handle errors here
                     }
                 });
             });
+
+
+            // Rest of your code...
+
+
+
+
 
             $('.invoice-modal').click(function() {
                 var userId = $(this).data('userid');

@@ -2,29 +2,24 @@
 // Include your configuration file or database connection here
 include '../../config.php';
 
-// Check if user_id and transaction_id are sent via POST
-if(isset($_POST['user_id']) && isset($_POST['transaction_id'])) {
-    // Retrieve user_id and transaction_id sent via POST
-    $user_id = $_POST['user_id'];
-    $transaction_id = $_POST['transaction_id'];
+// Check if user_id and transaction_id are provided
+if (isset($_POST['user_id']) && isset($_POST['transaction_id'])) {
+    $userId = $_POST['user_id'];
+    $transactionId = $_POST['transaction_id'];
 
-    // Update status in the database for the specific transaction
-    $query = "UPDATE transactions SET status = 'successful' WHERE user_id = '$user_id' AND transaction_id = '$transaction_id'";
+    // Update the status in the database
+    $query = "UPDATE transactions SET status = 'Success' WHERE transaction_id = $transactionId";
     $result = mysqli_query($conn, $query);
 
-    // Check if the query was successful
-    if($result) {
-        // Status update successful
-        $response = array('status' => 'success', 'message' => 'Status updated successfully');
-        echo json_encode($response);
+    if ($result) {
+        // Return success response
+        echo json_encode(['status' => 'success']);
     } else {
-        // Status update failed
-        $response = array('status' => 'error', 'message' => 'Failed to update status');
-        echo json_encode($response);
+        // Return error response
+        echo json_encode(['status' => 'error', 'message' => mysqli_error($conn)]);
     }
 } else {
-    // Handle invalid request (user_id or transaction_id not sent)
-    $response = array('status' => 'error', 'message' => 'Invalid request');
-    echo json_encode($response);
+    // Return error response if user_id or transaction_id is not provided
+    echo json_encode(['status' => 'error', 'message' => 'User ID or Transaction ID not provided']);
 }
 ?>

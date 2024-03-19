@@ -59,11 +59,17 @@ https://templatemo.com/tm-561-purple-buzz
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/return_books.php">Book-Return</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/fines.php">Fines</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <a class="nav-link" href="#"><i class='bx bx-bell bx-sm bx-tada-hover text-primary'></i></a>
-                    <a class="nav-link" href="#"><i class='bx bx-cog bx-sm text-primary'></i></a>
+                 
+                   
                     <a class="nav-link" href="/../LibraryManagement/views/auth/login.php"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
                 </div>
             </div>
