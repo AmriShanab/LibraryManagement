@@ -1,12 +1,112 @@
 <?php
+  session_start();
+
+ // Check if the 'user_type' session variable is set
+ $userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
+//  var_dump($_SESSION);
+
+//  echo "User Type: " . $userType; // Add this line for debugging
+?>
+
+<html>
+    <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="../../templatemo_561_purple_buzz/assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../templatemo_561_purple_buzz/assets/img/favicon.ico">
+    <!-- Load Require CSS -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font CSS -->
+    <link href="../../assets/css/boxicon.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Load Tempalte CSS -->
+    <link rel="stylesheet" href="../../assets/css/templatemo.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../Assets/CSS/custom.css">
+    <link rel="stylesheet" href="../../Assets/CSS/card.css">
+<!--
+    
+TemplateMo 561 Purple Buzz
+
+https://templatemo.com/tm-561-purple-buzz
+
+-->
+
+        <!-- <link rel="stylesheet" href="/../LibraryManagement/Themes/ngowebsitetemplate/css/style.css"> -->
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Poppins:wght@200&display=swap" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+
+    </head>
+    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand h1" href="index.html">
+                <i class='bx bx-buildings bx-sm text-dark'></i>
+                <span class="text-dark h4">E</span> <span class="text-primary h4">Library</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
+                <div class="flex-fill mx-xl-5 mb-2">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
+                        <?php if($userType === 'Staff') {?>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/books.php">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/transaction.php">Transation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/users.php">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/return_books.php">Book-Return</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/fines.php">Fines</a>
+                        </li>
+                        <?php } elseif ($userType === 'Student') { ?>
+                            <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/books.php">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
+                        </li>
+                        <?php }?>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                 
+                   
+                    <a class="nav-link" href="/../LibraryManagement/views/auth/login.php"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</html>
+<?php
 // Check if the user is not logged in
 // if (!isset($_SESSION['user_id'])) {
 //     // Redirect the user to the login page
 //     header("Location: auth/login.php");
 //     exit; // Stop further execution
 // }
-include '../config.php';
-include  __DIR__ . '/layouts/student_header.php';
+include '../../config.php';
+
 
 ?>
 <?php
@@ -25,16 +125,16 @@ $currentPage = 'home';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="../templatemo_561_purple_buzz/assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../templatemo_561_purple_buzz/assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../../templatemo_561_purple_buzz/assets/img/favicon.ico">
     <!-- Load Require CSS -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font CSS -->
-    <link href="../assets/css/boxicon.min.css" rel="stylesheet">
+    <link href="../../assets/css/boxicon.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Load Tempalte CSS -->
-    <link rel="stylesheet" href="../assets/css/templatemo.css">
+    <link rel="stylesheet" href="../../assets/css/templatemo.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/CSS/custom.css">
+    <link rel="stylesheet" href="../../assets/CSS/custom.css">
     <!-- <link rel="stylesheet" href="../Assets/CSS/index.css">  -->
 </head>
 
@@ -59,19 +159,19 @@ $currentPage = 'home';
             <div class="col-md-12">
                 <ul class="nav d-flex justify-content-center">
                     <li class="nav-item mx-lg-4">
-                        <a class="filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300" href="../views/book_types/fictions.php" data-filter=".project">Fiction</a>
+                        <a class="filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300" href="../../views/book_types/fictions.php" data-filter=".project">Fiction</a>
                     </li>
                     <li class="nav-item mx-lg-4">
-                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="../views/book_types/non_fiction.php" data-filter=".graphic">NON-FICTION</a>
+                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="../../views/book_types/non_fiction.php" data-filter=".graphic">NON-FICTION</a>
                     </li>
                     <li class="filter-btn nav-item mx-lg-4">
-                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="../views/book_types/technology.php" data-filter=".ui">TECHNOLOGY</a>
+                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="../../views/book_types/technology.php" data-filter=".ui">TECHNOLOGY</a>
                     </li>
                     <li class="nav-item mx-lg-4">
-                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="book_types/science_nature.php" data-filter=".branding">SCIENCE AND NATURE</a>
+                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="../book_types/science_nature.php" data-filter=".branding">SCIENCE AND NATURE</a>
                     </li>
                     <li class="nav-item mx-lg-4">
-                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="book_types/childre.php" data-filter=".branding">CHILDREN'S BOOKS</a>
+                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="../book_types/childre.php" data-filter=".branding">CHILDREN'S BOOKS</a>
                     </li>
                     <li class="nav-item mx-lg-4">
                         <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".branding">OTHERS</a>
@@ -88,7 +188,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project ui branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="service card-img" src="../Assets/Images/fiction.webp" alt="Card image">
+                    <img class="service card-img" src="../../Assets/Images/fiction.webp" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">FICTION BOOKS</span>
@@ -101,7 +201,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/non fiction1.webp" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/non fiction1.webp" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">NON-FICTION BOOKS</span>
@@ -114,7 +214,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/science and nature.avif" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/science and nature.avif" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">SCIENCE AND NATURE</span>
@@ -127,7 +227,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/children.jpg" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/children.jpg" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">CHILDREN</span>
@@ -140,7 +240,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/technology.jpg" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/technology.jpg" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">TECHNOLOGY</span>
@@ -153,7 +253,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/travel.jpg" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/travel.jpg" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">TRAVEL</span>
@@ -166,7 +266,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/religion1.jpg" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/religion1.jpg" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">RELIGION</span>
@@ -179,7 +279,7 @@ $currentPage = 'home';
             <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
-                    <img class="card-img" src="../Assets/Images/business.webp" alt="Card image">
+                    <img class="card-img" src="../../Assets/Images/business.webp" alt="Card image">
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Business and Finance</span>
@@ -307,5 +407,5 @@ $currentPage = 'home';
 
 </html>
 <?php
-include __DIR__ . '/../views/layouts/footer.php';
+include __DIR__ . '/../layouts/footer.php';
 ?>

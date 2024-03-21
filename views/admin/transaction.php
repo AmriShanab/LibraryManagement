@@ -3,6 +3,13 @@
 include '../../config.php';
 include '../layouts/header.php';
 $transactions = getAllTransactions($conn);
+
+function compareTransactions($a, $b) {
+    return $a['transaction_id'] - $b['transaction_id'];
+}
+
+// Sort transactions based on transaction_id
+usort($transactions, 'compareTransactions');
 ?>
 <!DOCTYPE html>
 <html lang="en">

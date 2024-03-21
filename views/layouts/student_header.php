@@ -1,11 +1,11 @@
 <?php
-//   session_start();
+  //session_start();
 
  // Check if the 'user_type' session variable is set
- $userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
-//  var_dump($_SESSION);
+ //$userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
+ //var_dump($_SESSION);
 
-//  echo "User Type: " . $userType; // Add this line for debugging
+ //echo "User Type: " . $userType; // Add this line for debugging
 ?>
 
 <html>
@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="../../templatemo_561_purple_buzz/assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../templatemo_561_purple_buzz/assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../../templatemo_561_purple_buzz/assets/img/favicon.ico">
     <!-- Load Require CSS -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font CSS -->
@@ -54,39 +54,17 @@ https://templatemo.com/tm-561-purple-buzz
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
                 <div class="flex-fill mx-xl-5 mb-2">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
-                        <?php if($userType === 'Staff') {?>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/index.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/books.php">Books</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/transaction.php">Transation</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/users.php">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/return_books.php">Book-Return</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/fines.php">Fines</a>
-                        </li>
-                        <?php } elseif ($userType === 'Student') { ?>
+                      
                             <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/index.php">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/student/index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/books.php">Books</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/Books Section/student_books.php">Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/Book Borrow Section/student_book_borrow.php">Book-Borrow</a>
                         </li>
-                        <?php }?>
+                        
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

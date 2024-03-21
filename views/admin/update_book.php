@@ -1,44 +1,35 @@
 <?php
 include '/../xampp/htdocs/LibraryManagement/config.php';
 
-// Check if the database connection is successful
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Function to update book details
-function updateBook($conn, $book_id, $isbn, $title, $author, $genre, $quantity) {
-    $query = "UPDATE books SET isbn=?, title=?, author=?, genre=?, quantity=? WHERE book_id=?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'ssssii', $isbn, $title, $author, $genre, $quantity, $book_id);
-    
-    // Execute the statement
-    if (mysqli_stmt_execute($stmt)) {
-        // Return a success message
-        echo json_encode(array('success' => 'Book details updated successfully'));
-    } else {
-        // Log the error
-        error_log("Error updating book details: " . mysqli_error($conn));
-
-        // Return an error message
-        echo json_encode(array('error' => 'Error updating book details'));
-    }
-}
-
-// Check if the form is submitted for updating book details
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateBook'])) {
-    $book_id = $_POST['book_id'];
+// Check if the form data is received via POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the book details from the POST data
+    $bookId = $_POST['book_id'];
     $isbn = $_POST['isbn'];
     $title = $_POST['title'];
     $author = $_POST['author'];
     $genre = $_POST['genre'];
     $quantity = $_POST['quantity'];
 
-    // Update the book details
-    updateBook($conn, $book_id, $isbn, $title, $author, $genre, $quantity);
-} else {
-    // If the form submission is not valid, return an error message
-    echo json_encode(array('error' => 'Invalid form submission'));
-}
+    // Update the book details in the database
+    $query = "UPDATE books SET isbn=?, title=?, author=?, genre=?, quantity=? WHERE book_id=?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'sssiii', $isbn, $title, $author, $genre, $quantity, $bookId);
 
+    // Execute the update query
+    if (mysqli_stmt_execute($stmt)) {
+        // Book details updated successfully
+        echo json_encode(array("success" => "Book updated successfully"));
+    } else {
+        // Error occurred while updating book details
+        echo json_encode(array("error" => "Failed to update book"));
+    }
+
+    // Close the database connection and statement
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+} else {
+    // If the request method is not POST, return an error message
+    echo json_encode(array("error" => "Invalid form submission"));
+}
 ?>

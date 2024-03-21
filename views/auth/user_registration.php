@@ -79,23 +79,23 @@ include '../layouts/footer.php';
 
 <?php
 require '../../config.php';  // Adjust the relative path as needed
+
 if (isset($_POST["submit"])) {
     $name = $_POST['name'];
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirmpassword'];
-
     $userType = $_POST['userType'];
-
     $registrationdate = $_POST['registrationdate'];
+
     $duplicate = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' OR email = '$email'");
     if (mysqli_num_rows($duplicate) > 0) {
         echo "EMAIL Or USERNAME IS ALREADY TAKEN";
     } else {
         if ($password == $confirmpassword) {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-            $query = "INSERT INTO users VALUES ('', '$name', '$username', '$email', '$hashedPassword', '$userType', '$registrationdate')";
+            $query = "INSERT INTO users (name, username, email, password, user_type, registration_date) VALUES ('$name', '$username', '$email', '$hashedPassword', '$userType', '$registrationdate')";
             mysqli_query($conn, $query);
             echo "Registration Successful";
         } else {

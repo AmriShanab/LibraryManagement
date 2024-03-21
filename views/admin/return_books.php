@@ -2,21 +2,29 @@
 include '/../xampp/htdocs/LibraryManagement/config.php';
 include '../layouts/header.php';
 
-// Function to fetch all book borrows with status 'Not Returned'
-function getNotReturnedBookBorrows($conn)
+// Function to fetch all book borrows with status 'Not Returned' and optional search filter
+function getNotReturnedBookBorrows($conn, $searchQuery = '')
 {
+    // Construct the base query
     $query = "SELECT bb.*, u.username, b.title
               FROM book_borrow bb
               JOIN users u ON bb.user_id = u.user_id
               JOIN books b ON bb.book_id = b.book_id
-              WHERE bb.status = 'Not Returned' AND bb.fine_amount = 0"; // Add condition for fine_amount
+              WHERE bb.status = 'Not Returned' AND bb.fine_amount = 0";
+
+    // Add search filter if provided
+    if (!empty($searchQuery)) {
+        $query .= " AND (bb.borrow_id LIKE '%$searchQuery%' OR u.username LIKE '%$searchQuery%' OR b.title LIKE '%$searchQuery%')";
+    }
+
     $result = mysqli_query($conn, $query);
     $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
     return $bookBorrows;
 }
 
 // Fetch all not returned book borrows
-$notReturnedBookBorrows = getNotReturnedBookBorrows($conn);
+$searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+$notReturnedBookBorrows = getNotReturnedBookBorrows($conn, $searchQuery);
 
 ?>
 
@@ -35,6 +43,14 @@ $notReturnedBookBorrows = getNotReturnedBookBorrows($conn);
 
     <div class="container mt-4">
         <h2>Not Returned Books</h2>
+        <!-- Search form -->
+        <form method="GET" action="">
+            <div class="form-group">
+                <input type="text" class="form-control" name="search" placeholder="Search by Borrow ID, Username, or Book Title" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <br>
         <table class="table mt-4">
             <thead>
                 <tr>
@@ -67,11 +83,12 @@ $notReturnedBookBorrows = getNotReturnedBookBorrows($conn);
         </table>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
+        jQuery.noConflict();
+        jQuery(document).ready(function($) {
             $(".confirmReturn").click(function() {
                 var borrowId = $(this).data('borrow-id');
                 if (confirm("Are you sure you want to return this book?")) {
@@ -104,3 +121,7 @@ $notReturnedBookBorrows = getNotReturnedBookBorrows($conn);
 </body>
 
 </html>
+
+<?php
+include __DIR__ . '/../layouts/footer.php';
+?>

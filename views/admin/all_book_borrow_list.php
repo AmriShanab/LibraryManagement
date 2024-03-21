@@ -1,7 +1,8 @@
 <?php
 include '/../xampp/htdocs/LibraryManagement/config.php';
+include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
 
-// Function to get all book borrows with fine (replace it with your actual function)
+// Function to get all book borrows with fine
 function getAllBookBorrows($conn)
 {
     $query = "SELECT bb.*, u.username, b.title, IFNULL(bb.fine_amount, 0) AS fine
@@ -9,8 +10,14 @@ function getAllBookBorrows($conn)
               JOIN users u ON bb.user_id = u.user_id
               JOIN books b ON bb.book_id = b.book_id";
     $result = mysqli_query($conn, $query);
-    $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    return $bookBorrows;
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $bookBorrows;
+    } else {
+        // Handle the case where no rows are returned
+        return array(); // Or any appropriate action
+    }
 }
 
 $bookBorrows = getAllBookBorrows($conn);
@@ -18,7 +25,7 @@ $bookBorrows = getAllBookBorrows($conn);
 // Initialize the return date once outside of the loop
 $returnDate = date('Y-m-d');
 
-// Check if the form is submitted for returning a book
+// Check if the form is submitted for updating the status and calculating fines
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($bookBorrows as &$borrow) {
         $borrowId = $borrow['borrow_id'];
@@ -27,26 +34,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // If the return date has passed, change the status to 'Not returned' and set the font color to red
         if ($status == 'Not returned' && strtotime($borrow['return_date']) < strtotime($returnDate)) {
             echo "<script>document.getElementById('status_" . $borrowId . "').style.color = 'red';</script>";
-        }
-    
-        // Calculate fine if return date has passed
-        if ($status == 'Not returned' && strtotime($borrow['return_date']) < strtotime($returnDate)) {
+            
+            // Calculate fine if the book is returned late
             $dueDate = strtotime($borrow['return_date']);
             $currentDate = strtotime($returnDate);
             $daysLate = ceil(abs($currentDate - $dueDate) / 86400); // Calculate number of days late
-            $fine = $daysLate * 1; // Fine per day is $1
-        } else {
-            $fine = 0; // No fine if book is returned on time
+            $fine = $daysLate * 2; // Fine per day is $2
+        
+            // Update the fine amount in the database
+            $updateQuery = "UPDATE book_borrow SET fine_amount = $fine WHERE borrow_id = $borrowId";
+            mysqli_query($conn, $updateQuery);
         }
     
-        // Update the status and fine in the database
+        // Update the status in the database
         returnBook($conn, $borrowId, $returnDate, $status);
-        // Assign the fine amount to the 'fine' key in the $borrow array
-        $borrow['fine'] = $fine;
     }
 }
+function compareBookBorrow($a, $b) {
+    return $a['borrow_id'] - $b['borrow_id'];
+}
 
-include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
+// Sort transactions based on borrow_id
+usort($bookBorrows, 'compareBookBorrow');
+
 ?>
 
 <!DOCTYPE html>
@@ -75,8 +85,7 @@ include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
                         <th>Borrow Date</th>
                         <th>Return Date</th>
                         <th>Status</th>
-                        <th>Fine</th>
-                        <!-- <th>Due Amount</th> -->
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -90,22 +99,16 @@ include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
                             <td><?php echo $borrow['borrow_date']; ?></td>
                             <td><?php echo $borrow['return_date']; ?></td>
                             <td>
-                                <?php
-                                // Set the font color of 'Not returned' to red if return date has passed
-                                $statusColor = ($borrow['status'] == 'Not returned' && strtotime($borrow['return_date']) < strtotime(date('Y-m-d'))) ? 'color:red;' : '';
-                                echo '<span id="status_' . $borrow['borrow_id'] . '" style="' . $statusColor . '">' . $borrow['status'] . '</span>';
-                                ?>
+                            <?php if ($borrow['status'] === 'Returned') : ?>
+                                <span class="badge badge-success"><?= $borrow['status'] ?></span>
+                            <?php elseif ($borrow['status'] === 'Not Returned') : ?>
+                                <span class="badge badge-danger"><?= $borrow['status'] ?></span>
+                            <?php else : ?>
+                                <span class="badge bg-info"><?= $borrow['status'] ?></span>
+                            <?php endif; ?>
                             </td>
-                            <td>
-    <?php
-    // Check if fine is numeric before formatting
-    if (is_numeric($borrow['fine'])) {
-        echo '$' . number_format((float)$borrow['fine'], 2);
-    } else {
-        echo $borrow['fine']; // If not numeric, just echo the value as is
-    }
-    ?>
-</td>
+                        
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

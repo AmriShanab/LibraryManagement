@@ -222,8 +222,9 @@ $(document).ready(function() {
             type: 'POST',
             url: 'update_book.php',
             data: formData, // Use formData variable here
+            dataType: 'json', // Specify that the expected response type is JSON
             success: function (response) {
-                // Check if the response contains success or error
+                console.log(response); // Log the response received from update_book.php
                 if (response.success) {
                     alert(response.success);
                     $('#editBookModal').modal('hide');
@@ -231,6 +232,7 @@ $(document).ready(function() {
                 } else if (response.error) {
                     alert(response.error);
                 } else {
+                    console.log('Unknown response format:', response); // Log if the response format is unexpected
                     alert('Unknown error occurred');
                 }
             },

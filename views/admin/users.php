@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . '/../../config.php';
-include __DIR__ . '../../layouts/header.php';
+include __DIR__ . '/../layouts/header.php';
 
 // Get all users from the database
 $users = getAllUsers($conn);
@@ -12,7 +12,7 @@ if (!empty($users)) {}
 <html lang="en">
 
 <head>
-    <!-- Head section with necessary meta tags, CSS, and other resources -->
+   
 </head>
 
 <body>

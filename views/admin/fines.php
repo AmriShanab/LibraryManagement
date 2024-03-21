@@ -5,20 +5,26 @@ include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
 // Function to get book borrows with fine
 function getBookBorrowsWithFine($conn)
 {
-    $query = "SELECT bb.*, u.username, b.title
+    $query = "SELECT bb.*, u.username, b.title,
+              TIMESTAMPDIFF(DAY, bb.return_date, CURRENT_DATE()) AS days_late
               FROM book_borrow bb
               JOIN users u ON bb.user_id = u.user_id
               JOIN books b ON bb.book_id = b.book_id
-              WHERE bb.fine_amount > 0";
+              WHERE bb.status = 'Not Returned'";
     $result = mysqli_query($conn, $query);
     $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+    // Calculate fine
+    foreach ($bookBorrows as &$borrow) {
+        $daysLate = max($borrow['days_late'], 0); // Ensure the number of days late is not negative
+        $fine = $daysLate * 2; // $2 per day late
+        $borrow['fine'] = $fine;
+    }
+
     return $bookBorrows;
 }
 
-
-
 $bookBorrows = getBookBorrowsWithFine($conn);
-
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +65,7 @@ $bookBorrows = getBookBorrowsWithFine($conn);
                         <td><?php echo $borrow['title']; ?></td>
                         <td><?php echo $borrow['borrow_date']; ?></td>
                         <td><?php echo $borrow['return_date']; ?></td>
-                        <td><?php echo '$' . number_format($borrow['fine_amount'], 2); ?></td>
+                        <td><?php echo '$' . number_format($borrow['fine'], 2); ?></td>
                         <td>
                             <button class="btn btn-sm btn-info m-2 payment-modal" data-borrowid="<?= $borrow['borrow_id'] ?>">Pay</button>
                         </td>
@@ -95,52 +101,53 @@ $bookBorrows = getBookBorrowsWithFine($conn);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-    $(document).ready(function() {
-        $(".payment-modal").click(function() {
-            var borrowId = $(this).data('borrowid');
-            $("#confirmPayment").data('borrowid', borrowId);
-            $('#paymentModal').modal('show');
+        $(document).ready(function() {
+            $(".payment-modal").click(function() {
+                var borrowId = $(this).data('borrowid');
+                $("#confirmPayment").data('borrowid', borrowId);
+                $('#paymentModal').modal('show');
+            });
+
+            $("#confirmPayment").click(function() {
+                var borrowId = $("#confirmPayment").data('borrowid');
+                if (confirm("Are you sure you want to pay the fine?")) {
+                    $.ajax({
+                        url: 'process_payment.php',
+                        method: 'POST',
+                        data: {
+                            borrow_id: borrowId
+                        },
+                        success: function(response) {
+                            $('#paymentModal').modal('hide');
+                            $('tr[data-borrowid="' + borrowId + '"]').remove(); // Remove the row from the table
+
+                            // Set fine_amount to 0 in the database
+                            $.ajax({
+                                url: 'update_fine.php',
+                                method: 'POST',
+                                data: {
+                                    borrow_id: borrowId
+                                },
+                                success: function(response) {
+                                    // Handle success if needed
+                                    console.log('Fine amount set to 0');
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors here
+                                    console.error(xhr.responseText);
+                                }
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors here
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
         });
+    </script>
 
-        $("#confirmPayment").click(function() {
-            var borrowId = $("#confirmPayment").data('borrowid');
-            if (confirm("Are you sure you want to pay the fine?")) {
-                $.ajax({
-                    url: 'process_payment.php',
-                    method: 'POST',
-                    data: {
-                        borrow_id: borrowId
-                    },
-                    success: function(response) {
-                        $('#paymentModal').modal('hide');
-                        $('tr[data-borrowid="' + borrowId + '"]').remove(); // Remove the row from the table
-
-                        // Set fine_amount to 0 in the database
-                        $.ajax({
-                            url: 'update_fine.php',
-                            method: 'POST',
-                            data: {
-                                borrow_id: borrowId
-                            },
-                            success: function(response) {
-                                // Handle success if needed
-                                console.log('Fine amount set to 0');
-                            },
-                            error: function(xhr, status, error) {
-                                // Handle errors here
-                                console.error(xhr.responseText);
-                            }
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors here
-                        console.error(xhr.responseText);
-                    }
-                });
-            }
-        });
-    });
-</script>
-
+</body>
 
 </html>

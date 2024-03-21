@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
     $rateMessage = "Total rate for borrowing: $" . $totalRate . " for " . $days . " days";
 }
 
-include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
+include '/../xampp/htdocs/LibraryManagement/views/layouts/student_header.php';
 ?>
 
 <!DOCTYPE html>
@@ -223,7 +223,7 @@ include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
                 echo "Book Borrwoed Succesful"; 
                 echo "</div>";
             } ?>
-        <a href="all_book_borrow_list.php" class="btn rounded-pill px-4 btn-outline-primary light-300 ">View All Book Borrow Records</a>
+        <!-- <a href="all_book_borrow_list.php" class="btn rounded-pill px-4 btn-outline-primary light-300 ">View All Book Borrow Records</a> -->
         <br>
 
 
