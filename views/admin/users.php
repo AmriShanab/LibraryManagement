@@ -1,6 +1,7 @@
 <?php
-include __DIR__ . '/../../config.php';
+require '/xampp/htdocs/LibraryManagement/config.php';
 include __DIR__ . '/../layouts/header.php';
+
 
 // Get all users from the database
 $users = getAllUsers($conn);

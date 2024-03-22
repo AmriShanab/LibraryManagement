@@ -6,6 +6,14 @@
 //  var_dump($_SESSION);
 
 //  echo "User Type: " . $userType; // Add this line for debugging
+
+include '../../config.php';
+$userStatistics = getUserStatistics($conn);
+$totalBooks = getTotalBooks($conn);
+$bookStatusStatistics = getBookStatusStatistics($conn);
+$bookCategories = getBookCategories($conn);
+$currentPage = 'home';
+
 ?>
 
 <html>
@@ -15,30 +23,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="../../templatemo_561_purple_buzz/assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../templatemo_561_purple_buzz/assets/img/favicon.ico">
-    <!-- Load Require CSS -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font CSS -->
     <link href="../../assets/css/boxicon.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Load Tempalte CSS -->
     <link rel="stylesheet" href="../../assets/css/templatemo.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="../../Assets/CSS/custom.css">
     <link rel="stylesheet" href="../../Assets/CSS/card.css">
-<!--
-    
-TemplateMo 561 Purple Buzz
 
-https://templatemo.com/tm-561-purple-buzz
-
--->
-
-        <!-- <link rel="stylesheet" href="/../LibraryManagement/Themes/ngowebsitetemplate/css/style.css"> -->
-        <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
-<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-<!-- <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Poppins:wght@200&display=swap" rel="stylesheet"> -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 
     </head>
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
@@ -92,54 +84,14 @@ https://templatemo.com/tm-561-purple-buzz
                 <div class="navbar align-self-center d-flex">
                  
                    
-                    <a class="nav-link" href="/../LibraryManagement/views/auth/login.php"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
+                    <a class="nav-link" href="/../LibraryManagement/views/auth/login.php"><i class='bx bx-log-out'> LOG-OUT</i></a>
+                    <a class="nav-link" href="/../LibraryManagement/views/profile.php"><i class='bx bx-user bx-sm text-primary'></i> Profile</a>
+
                 </div>
             </div>
         </div>
     </nav>
-</html>
-<?php
-// Check if the user is not logged in
-// if (!isset($_SESSION['user_id'])) {
-//     // Redirect the user to the login page
-//     header("Location: auth/login.php");
-//     exit; // Stop further execution
-// }
-include '../../config.php';
-
-
-?>
-<?php
-// Call the getUserStatistics function and store the results in $userStatistics
-$userStatistics = getUserStatistics($conn);
-$totalBooks = getTotalBooks($conn);
-$bookStatusStatistics = getBookStatusStatistics($conn);
-$bookCategories = getBookCategories($conn);
-$currentPage = 'home';
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="../templatemo_561_purple_buzz/assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../templatemo_561_purple_buzz/assets/img/favicon.ico">
-    <!-- Load Require CSS -->
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font CSS -->
-    <link href="../../assets/css/boxicon.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Load Tempalte CSS -->
-    <link rel="stylesheet" href="../../assets/css/templatemo.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../../assets/CSS/custom.css">
-    <!-- <link rel="stylesheet" href="../Assets/CSS/index.css">  -->
-</head>
-
-<body>
-   
+<body>  
     <section class="service-wrapper py-3">
         <div class="container-fluid pb-3">
             <div class="row">

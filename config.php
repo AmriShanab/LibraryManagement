@@ -3,7 +3,7 @@
     session_start();
 }
 
-
+// connect the database
     $conn = mysqli_connect("localhost","root","","LibraryDB");
     function getUserStatistics($conn)
     {
@@ -21,18 +21,18 @@
         $rowActiveUsers = mysqli_fetch_assoc($resultActiveUsers);
         $userStatistics['activeUsers'] = $rowActiveUsers['activeUsers'];
 
-        // Add more statistics as needed
+        
 
         return $userStatistics;
-    }
-
+     }
+// functions to get all books
     function getTotalBooks($conn) {
         $query = "SELECT COUNT(*) as totalBooks FROM books";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
         return $row['totalBooks'];
     }
-
+// get book statistics
     function getBookStatusStatistics($conn) {
         $query = "SELECT 
                     SUM(CASE WHEN status = 'Available' THEN 1 ELSE 0 END) as availableBooks,
@@ -41,7 +41,7 @@
         $result = mysqli_query($conn, $query);
         return mysqli_fetch_assoc($result);
     }
-
+// get book categoreis
     function getBookCategories($conn) {
         $query = "SELECT DISTINCT category, genre FROM books";
         $result = mysqli_query($conn, $query);
@@ -53,6 +53,7 @@
 
         return $categories;
     }
+    // function to get all users
     function getAllUsers($conn)
     {
         $query = "SELECT * FROM users";
@@ -118,7 +119,7 @@ function deleteBook($conn, $book_id)
         return "Error deleting book: " . mysqli_error($conn);
     }
 }
-    
+    // functions to get all transactions
 function getAllTransactions($conn) {
     $query = "SELECT t.transaction_id, t.user_id, u.username, b.title, t.transaction_type, t.amount, t.transaction_date, t.status 
               FROM transactions t 

@@ -89,7 +89,8 @@
                                 <label for="password">Password:</label>
                                 <input type="password" name="password" class="form-control" required>
                             </div>
-                            <button type="submit" name="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" name="submit" class="btn btn-primary btn-block">Login</button><br>
+                            <button type="submit" name="submit" class="btn btn-primary btn-block"><a href="../admin/guest_books.php" style="color: white;">Login as Guest</a></button>
                         </form>
                         <div class="text-center mt-3">
                             <p>Don't have an account? <a href="../auth/user_registration.php" class="btn-register">Register</a></p>

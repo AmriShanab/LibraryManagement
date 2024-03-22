@@ -81,10 +81,10 @@ https://templatemo.com/tm-561-purple-buzz
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/books.php">Books</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/student_books.php">Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/book_borrow.php">Book-Borrow</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="/../LibraryManagement/views/admin/student_book_borrow.php">Book-Borrow</a>
                         </li>
                         <?php }?>
                     </ul>
@@ -92,7 +92,9 @@ https://templatemo.com/tm-561-purple-buzz
                 <div class="navbar align-self-center d-flex">
                  
                    
-                    <a class="nav-link" href="/../LibraryManagement/views/auth/login.php"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
+                    <a class="nav-link" href="/../LibraryManagement/views/auth/login.php"><i class='bx bx-log-out'>LOG-OUT</i></a>
+                    <a class="nav-link" href="/../LibraryManagement/views/profile.php"><i class='bx bx-user bx-sm text-primary'></i> Profile</a>
+
                 </div>
             </div>
         </div>

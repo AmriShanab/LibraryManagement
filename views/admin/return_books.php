@@ -2,17 +2,14 @@
 include '/../xampp/htdocs/LibraryManagement/config.php';
 include '../layouts/header.php';
 
-// Function to fetch all book borrows with status 'Not Returned' and optional search filter
 function getNotReturnedBookBorrows($conn, $searchQuery = '')
 {
-    // Construct the base query
     $query = "SELECT bb.*, u.username, b.title
               FROM book_borrow bb
               JOIN users u ON bb.user_id = u.user_id
               JOIN books b ON bb.book_id = b.book_id
               WHERE bb.status = 'Not Returned' AND bb.fine_amount = 0";
 
-    // Add search filter if provided
     if (!empty($searchQuery)) {
         $query .= " AND (bb.borrow_id LIKE '%$searchQuery%' OR u.username LIKE '%$searchQuery%' OR b.title LIKE '%$searchQuery%')";
     }
@@ -22,7 +19,6 @@ function getNotReturnedBookBorrows($conn, $searchQuery = '')
     return $bookBorrows;
 }
 
-// Fetch all not returned book borrows
 $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 $notReturnedBookBorrows = getNotReturnedBookBorrows($conn, $searchQuery);
 
@@ -101,7 +97,7 @@ $notReturnedBookBorrows = getNotReturnedBookBorrows($conn, $searchQuery);
                         success: function(response) {
                             if (response === 'success') {
                                 alert('Book returned successfully.');
-                                location.reload(); // Reload the page to reflect the changes
+                                location.reload(); 
                             } else if (response.startsWith('error')) {
                                 alert('Failed to return the book.');
                             } else {

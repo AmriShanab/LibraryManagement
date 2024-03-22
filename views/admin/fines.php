@@ -2,7 +2,6 @@
 include '/../xampp/htdocs/LibraryManagement/config.php';
 include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
 
-// Function to get book borrows with fine
 function getBookBorrowsWithFine($conn)
 {
     $query = "SELECT bb.*, u.username, b.title,
@@ -14,10 +13,9 @@ function getBookBorrowsWithFine($conn)
     $result = mysqli_query($conn, $query);
     $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
-    // Calculate fine
     foreach ($bookBorrows as &$borrow) {
-        $daysLate = max($borrow['days_late'], 0); // Ensure the number of days late is not negative
-        $fine = $daysLate * 2; // $2 per day late
+        $daysLate = max($borrow['days_late'], 0); 
+        $fine = $daysLate * 2; 
         $borrow['fine'] = $fine;
     }
 
@@ -29,18 +27,18 @@ $bookBorrows = getBookBorrowsWithFine($conn);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Fines</title>
 </head>
-
 <body>
-
     <div class="container mt-4">
         <h2>Fines</h2>
+        <div class="form-group">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by Borrow ID">
+        </div>
         <table class="table mt-4">
             <thead>
                 <tr>
@@ -102,6 +100,7 @@ $bookBorrows = getBookBorrowsWithFine($conn);
 
     <script>
         $(document).ready(function() {
+            
             $(".payment-modal").click(function() {
                 var borrowId = $(this).data('borrowid');
                 $("#confirmPayment").data('borrowid', borrowId);
@@ -116,12 +115,9 @@ $bookBorrows = getBookBorrowsWithFine($conn);
                         method: 'POST',
                         data: {
                             borrow_id: borrowId
-                        },
-                        success: function(response) {
+                        }, success: function(response) {
                             $('#paymentModal').modal('hide');
-                            $('tr[data-borrowid="' + borrowId + '"]').remove(); // Remove the row from the table
-
-                            // Set fine_amount to 0 in the database
+                            $('tr[data-borrowid="' + borrowId + '"]').remove(); 
                             $.ajax({
                                 url: 'update_fine.php',
                                 method: 'POST',
@@ -129,17 +125,14 @@ $bookBorrows = getBookBorrowsWithFine($conn);
                                     borrow_id: borrowId
                                 },
                                 success: function(response) {
-                                    // Handle success if needed
                                     console.log('Fine amount set to 0');
                                 },
                                 error: function(xhr, status, error) {
-                                    // Handle errors here
                                     console.error(xhr.responseText);
                                 }
                             });
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors here
                             console.error(xhr.responseText);
                         }
                     });

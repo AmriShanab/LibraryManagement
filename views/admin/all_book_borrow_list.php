@@ -15,38 +15,31 @@ function getAllBookBorrows($conn)
         $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $bookBorrows;
     } else {
-        // Handle the case where no rows are returned
-        return array(); // Or any appropriate action
+        return array(); 
     }
 }
 
 $bookBorrows = getAllBookBorrows($conn);
-
-// Initialize the return date once outside of the loop
 $returnDate = date('Y-m-d');
 
-// Check if the form is submitted for updating the status and calculating fines
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($bookBorrows as &$borrow) {
         $borrowId = $borrow['borrow_id'];
         $status = isset($_POST['status_' . $borrowId]) ? $_POST['status_' . $borrowId] : 'Not returned';
     
-        // If the return date has passed, change the status to 'Not returned' and set the font color to red
+        // if returned date pass shows in not returend as a red color
         if ($status == 'Not returned' && strtotime($borrow['return_date']) < strtotime($returnDate)) {
             echo "<script>document.getElementById('status_" . $borrowId . "').style.color = 'red';</script>";
             
-            // Calculate fine if the book is returned late
             $dueDate = strtotime($borrow['return_date']);
             $currentDate = strtotime($returnDate);
-            $daysLate = ceil(abs($currentDate - $dueDate) / 86400); // Calculate number of days late
-            $fine = $daysLate * 2; // Fine per day is $2
-        
-            // Update the fine amount in the database
+            $daysLate = ceil(abs($currentDate - $dueDate) / 86400); 
+            $fine = $daysLate * 2; 
+    
             $updateQuery = "UPDATE book_borrow SET fine_amount = $fine WHERE borrow_id = $borrowId";
             mysqli_query($conn, $updateQuery);
         }
     
-        // Update the status in the database
         returnBook($conn, $borrowId, $returnDate, $status);
     }
 }
@@ -54,7 +47,6 @@ function compareBookBorrow($a, $b) {
     return $a['borrow_id'] - $b['borrow_id'];
 }
 
-// Sort transactions based on borrow_id
 usort($bookBorrows, 'compareBookBorrow');
 
 ?>
