@@ -107,29 +107,29 @@ usort($transactions, 'compareTransactions');
 
     <script>
         $(document).ready(function() {
-            // Check if the payment modal button is clicked
+           
             $('.payment-modal').click(function() {
-                console.log("Payment modal button clicked"); // Check if this log appears in the console
-                var userId = $(this).data('userid'); // Retrieve userId using $(this)
+                console.log("Payment modal button clicked"); 
+                var userId = $(this).data('userid'); 
                 var username = $(this).data('username');
                 var booktitle = $(this).data('booktitle');
                 var amount = $(this).data('amount');
-                var transactionId = $(this).data('transactionid'); // Retrieve transaction ID
+                var transactionId = $(this).data('transactionid'); 
 
-                // Populate form fields with data
+                
                 $('#username').val(username);
                 $('#booktitle').val(booktitle);
                 $('#amount').val(amount);
-                $('#transaction_id').val(transactionId); // Assign transaction ID to the hidden input
+                $('#transaction_id').val(transactionId); 
 
-                // Open the payment modal
+                
                 $('#paymentModal').modal('show');
             });
 
             $('#payNowBtn').click(function(e) {
-                e.preventDefault(); // Prevent form submission
-                var userId = $('#username').val(); // Retrieve user ID from the payment modal
-                var transactionId = $('#transaction_id').val(); // Retrieve transaction ID from hidden input
+                e.preventDefault(); 
+                var userId = $('#username').val(); 
+                var transactionId = $('#transaction_id').val(); 
                 $.ajax({
                     type: 'POST',
                     url: 'update_status.php',
@@ -138,38 +138,28 @@ usort($transactions, 'compareTransactions');
                         transaction_id: transactionId
                     },
                     success: function(response) {
-                        // Check if the response is valid
+                        
                         if (response && response.status === 'success') {
-                            // Update the status in the table
-                            // $('td[data-transactionid="' + transactionId + '"]').siblings('td:nth-child(7)').find('.badge').removeClass('bg-danger').addClass('bg-success').text('Success');
-                            // Close the payment modal
+                        
+                        
                         } else {
-                            // Handle error if status update failed
+                        
                             $('#paymentModal').modal('hide');
                             window.location.reload();
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error("AJAX request failed:", error);
-                        // Handle errors here
+                        
                     }
                 });
             });
-
-
-            // Rest of your code...
-
-
-
-
 
             $('.invoice-modal').click(function() {
                 var userId = $(this).data('userid');
                 var username = $(this).data('username');
                 var booktitle = $(this).data('booktitle');
                 var amount = $(this).data('amount');
-
-                // AJAX request to generate receipt PDF
                 $.ajax({
                     type: 'POST',
                     url: 'receipt.php',
@@ -180,13 +170,10 @@ usort($transactions, 'compareTransactions');
                         amount: amount
                     },
                     success: function(response) {
-                        // Handle success, if needed
+                        
                         alert('Receipt generated successfully!');
-                        // Optionally, you can redirect the user to the generated PDF
-                        // window.location.href = response;
                     },
                     error: function(xhr, status, error) {
-                        // Handle error, if needed
                         console.error('Error generating receipt:', error);
                     }
                 });
