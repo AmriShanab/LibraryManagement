@@ -100,7 +100,7 @@ usort($bookBorrows, 'compareBookBorrow');
                             <?php endif; ?>
                             </td>
                         
-
+                                
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

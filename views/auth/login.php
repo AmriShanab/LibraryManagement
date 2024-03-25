@@ -1,59 +1,45 @@
 <?php
-    // Start the session
-    session_start();
 
-    // Include the database configuration
-    include '../../config.php';
+session_start();
+include '../../config.php';
 
-    // Check if the form is submitted
-    if (isset($_POST["submit"])) {
-        // Retrieve username and password from the form
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+if (isset($_POST["submit"])) {
 
-        // Query to fetch user details from the database based on the username
-        $query = "SELECT * FROM users WHERE username = '$username'";
-        $result = mysqli_query($conn, $query);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    $result = mysqli_query($conn, $query);
 
-        // Check if the query returned any rows
-        if (mysqli_num_rows($result) > 0) {
-            // Fetch the row
-            $row = mysqli_fetch_assoc($result);
-            // Verify the password using password_verify
-            if (password_verify($password, $row['password'])) {
-                // Password is correct, set session variables
-                $_SESSION['user_id'] = $row['user_id']; // You can set other session variables here if needed
-                $_SESSION['user_type'] = $row['user_type']; // Assuming user_type is stored in the database
-                
-                // Redirect to the appropriate page based on user type
-                if ($_SESSION['user_type'] === 'Staff') {
-                    header("Location: ../Staff/index.php");
-                } elseif ($_SESSION['user_type'] === 'Student') {
-                    header("Location: ../Student/index.php");
-                } else {
-                    // Handle other user types or unexpected cases
-                    // header("Location: ../index.php");
-                }
-                exit(); // Ensure that no further code execution occurs after the redirection
+    if (mysqli_num_rows($result) > 0) {
+         $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['user_type'] = $row['user_type'];
+            if ($_SESSION['user_type'] === 'Staff') {
+                header("Location: ../Staff/index.php");
+            } elseif ($_SESSION['user_type'] === 'Student') {
+                header("Location: ../Student/index.php");
             } else {
-                // Password is incorrect
-                echo '<script>alert("Incorrect password. Please try again.");</script>';
+                header("Location: user_registration.php");
             }
+            exit();
         } else {
-            // User does not exist
-            echo '<script>alert("User does not exist. Please register.");</script>';
+            echo '<script>alert("Incorrect password. Please try again.");</script>';
         }
+    } else {
+        echo '<script>alert("User does not exist. Please register.");</script>';
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Library Management System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        /* Custom CSS styles */
         .card {
             margin-top: 50px;
             border-radius: 10px;
@@ -105,4 +91,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

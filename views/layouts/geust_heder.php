@@ -36,21 +36,6 @@
     }
 
 </style>
-
-<!--
-    
-TemplateMo 561 Purple Buzz
-
-https://templatemo.com/tm-561-purple-buzz
-
--->
-
-        <!-- <link rel="stylesheet" href="/../LibraryManagement/Themes/ngowebsitetemplate/css/style.css"> -->
-        <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
-<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-<!-- <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Poppins:wght@200&display=swap" rel="stylesheet"> -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
-
     </head>
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">

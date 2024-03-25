@@ -138,7 +138,7 @@ if (!empty($users)) {}
 
 <script>
 $(document).ready(function () {
-    // Function to handle Edit User modal
+    
     $('.edit-user-btn').click(function () {
         var userId = $(this).data('userid');
         $.ajax({
@@ -147,24 +147,24 @@ $(document).ready(function () {
             data: { user_id: userId },
             dataType: 'json',
             success: function (response) {
-                // Check if response contains user details
+              
                 if (response) {
-                    // Set the values of form fields with user details
+                   
                     $('#editUserId').val(response.user_id);
                     $('#editName').val(response.name);
                     $('#editUsername').val(response.username);
                     $('#editEmail').val(response.email);
                     $('#editUserType').val(response.user_type);
                     $('#editRegistrationDate').val(response.registration_date);
-                    // Show the Edit User modal
+                    
                     $('#editUserModal').modal('show');
                 } else {
-                    // Show an alert or handle the case where user details are not found
+                    
                     alert('User details not found.');
                 }
             },
             error: function () {
-                // Show an alert or handle the case where there's an error in fetching user details
+                
                 alert('Error in fetching user details.');
             }
         });
@@ -172,28 +172,28 @@ $(document).ready(function () {
 });
 
 
-        // Function to handle Edit User form submission
+        
         $('#editUserForm').submit(function (e) {
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
                 type: 'POST',
-                url: 'update_user.php', // Update this with the correct URL
+                url: 'update_user.php', 
                 data: formData,
                 success: function (response) {
-                    alert(response); // Show a message indicating success or failure
+                    alert(response); 
                     $('#editUserModal').modal('hide');
-                    window.location.reload(); // Reload the page to reflect changes
+                    window.location.reload(); 
                 },
                 error: function () {
-                    alert('Error in updating user.'); // Show an error message
+                    alert('Error in updating user.'); 
                 }
             });
         });
     
 
         $(document).ready(function () {
-            // Function to handle Add User form submission
+            
             $('#addUserForm').submit(function (e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
@@ -211,28 +211,23 @@ $(document).ready(function () {
         });
 
         $(document).ready(function () {
-    // Handle click event for delete user button
     $('.delete-user-btn').click(function (e) {
-        e.preventDefault(); // Prevent the default behavior of the button
-        // Get the user ID from the data attribute
+        e.preventDefault(); 
         var userId = $(this).data('userid');
         
-        // Show confirmation dialog
         var confirmDelete = confirm("Are you sure you want to delete this user?");
         
-        // If user confirms deletion
         if (confirmDelete) {
-            // Perform AJAX request to delete user
             $.ajax({
                 type: 'POST',
-                url: 'delete_user.php', // Update this with the correct URL
+                url: 'delete_user.php', 
                 data: { user_id: userId },
                 success: function (response) {
-                    alert(response); // Show a message indicating success or failure
-                    window.location.reload(); // Reload the page to reflect changes
+                    alert(response); 
+                    window.location.reload(); 
                 },
                 error: function () {
-                    alert('Error in deleting user.'); // Show an error message
+                    alert('Error in deleting user.'); 
                 }
             });
         }

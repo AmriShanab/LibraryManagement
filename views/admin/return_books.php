@@ -47,6 +47,7 @@ $notReturnedBookBorrows = getNotReturnedBookBorrows($conn, $searchQuery);
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
         <br>
+        <a href="fines.php" class="btn rounded-pill px-4 btn-outline-primary light-300 ">View Fines</a>
         <table class="table mt-4">
             <thead>
                 <tr>

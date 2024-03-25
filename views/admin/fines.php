@@ -2,14 +2,19 @@
 include '/../xampp/htdocs/LibraryManagement/config.php';
 include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
 
-function getBookBorrowsWithFine($conn)
+function getBookBorrowsWithFine($conn, $search = "")
 {
+    $searchQuery = "";
+    if (!empty($search)) {
+        $searchQuery = " AND bb.borrow_id LIKE '%$search%'";
+    }
+    
     $query = "SELECT bb.*, u.username, b.title,
               TIMESTAMPDIFF(DAY, bb.return_date, CURRENT_DATE()) AS days_late
               FROM book_borrow bb
               JOIN users u ON bb.user_id = u.user_id
               JOIN books b ON bb.book_id = b.book_id
-              WHERE bb.status = 'Not Returned'";
+              WHERE bb.status = 'Not Returned'" . $searchQuery;
     $result = mysqli_query($conn, $query);
     $bookBorrows = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
@@ -22,7 +27,8 @@ function getBookBorrowsWithFine($conn)
     return $bookBorrows;
 }
 
-$bookBorrows = getBookBorrowsWithFine($conn);
+$search = isset($_GET['search']) ? $_GET['search'] : "";
+$bookBorrows = getBookBorrowsWithFine($conn, $search);
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +43,10 @@ $bookBorrows = getBookBorrowsWithFine($conn);
     <div class="container mt-4">
         <h2>Fines</h2>
         <div class="form-group">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search by Borrow ID">
+            <form method="GET">
+                <input type="text" class="form-control" name="search" id="searchInput" placeholder="Search by Borrow ID" value="<?php echo $search; ?>">
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </form>
         </div>
         <table class="table mt-4">
             <thead>
@@ -142,5 +151,4 @@ $bookBorrows = getBookBorrowsWithFine($conn);
     </script>
 
 </body>
-
 </html>

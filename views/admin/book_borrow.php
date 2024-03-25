@@ -1,5 +1,6 @@
 <?php
 include '/../xampp/htdocs/LibraryManagement/config.php';
+include '../layouts/header.php';
 
 function borrowBook($conn, $bookId, $userId, $borrowDate, $returnDate)
 {
@@ -108,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
     $rateMessage = "Total rate for borrowing: $" . $totalRate . " for " . $days . " days";
 }
 
-include '/../xampp/htdocs/LibraryManagement/views/layouts/header.php';
+
 ?>
 
 <!DOCTYPE html>

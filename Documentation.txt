@@ -1,0 +1,19 @@
+Project Name : Library Management System
+Done By : M.M.Amri Shanab
+Batch : Web Design & Development - Batch 13
+
+file path for login page : views/auth/login.php
+file path for home page : views/staff/index,php
+
+for admin use :
+username : admin
+password : admin123
+
+for student use : 
+username : Student
+password : student123
+
+git repo name : librarymanagement
+git link : https://github.com/AmriShanab/LibraryManagement.git
+
+Database name : LibraryDB

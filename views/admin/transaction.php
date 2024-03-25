@@ -1,5 +1,5 @@
 <?php
-// Include your configuration file or database connection here
+
 include '../../config.php';
 include '../layouts/header.php';
 $transactions = getAllTransactions($conn);
@@ -8,7 +8,7 @@ function compareTransactions($a, $b) {
     return $a['transaction_id'] - $b['transaction_id'];
 }
 
-// Sort transactions based on transaction_id
+
 usort($transactions, 'compareTransactions');
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,6 @@ usort($transactions, 'compareTransactions');
 </head>
 
 <body>
-
     <div class="container mt-4">
         <h2>Transaction List</h2>
         <table class="table">
@@ -31,7 +30,6 @@ usort($transactions, 'compareTransactions');
                     <th>Transaction ID</th>
                     <th>Username</th>
                     <th>Book Title</th>
-                    
                     <th>Amount</th>
                     <th>Transaction Date</th>
                     <th>Status</th>
@@ -90,7 +88,7 @@ usort($transactions, 'compareTransactions');
                             <label for="amount">Amount:</label>
                             <input type="text" class="form-control" id="amount" readonly autocomplete="amount">
                         </div>
-                        <!-- Hidden input field for transaction_id -->
+                        
                         <input type="hidden" id="transaction_id" name="transaction_id">
                         <button type="button" class="btn btn-primary" id="payNowBtn">Pay Now</button>
                     </form>
@@ -99,7 +97,7 @@ usort($transactions, 'compareTransactions');
         </div>
     </div>
 
-    <!-- Include your footer HTML or any necessary components here -->
+   
     <?php include '../layouts/footer.php'; ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

@@ -1,21 +1,13 @@
 <?php
   session_start();
-
- // Check if the 'user_type' session variable is set
  $userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
-//  var_dump($_SESSION);
-
-//  echo "User Type: " . $userType; // Add this line for debugging
-
 include '../../config.php';
 $userStatistics = getUserStatistics($conn);
 $totalBooks = getTotalBooks($conn);
 $bookStatusStatistics = getBookStatusStatistics($conn);
 $bookCategories = getBookCategories($conn);
 $currentPage = 'home';
-
 ?>
-
 <html>
     <head>
     
@@ -30,8 +22,6 @@ $currentPage = 'home';
     <link rel="stylesheet" href="../../assets/css/templatemo.css">
     <link rel="stylesheet" href="../../Assets/CSS/custom.css">
     <link rel="stylesheet" href="../../Assets/CSS/card.css">
-
-
     </head>
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
@@ -42,7 +32,6 @@ $currentPage = 'home';
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
                 <div class="flex-fill mx-xl-5 mb-2">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
@@ -136,8 +125,6 @@ $currentPage = 'home';
    
     <section class="container overflow-hidden py-5">
         <div class="row gx-5 gx-sm-3 gx-lg-5 gy-lg-5 gy-3 pb-3 projects">
-
-            <!-- Start Recent Work -->
             <div class="col-xl-3 col-md-4 col-sm-6 project ui branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="service card-img" src="../../Assets/Images/fiction.webp" alt="Card image">
@@ -148,9 +135,7 @@ $currentPage = 'home';
                             Fiction books transport readers to imaginative worlds and storytelling.</p>                        </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
-            <!-- Start Recent Work -->
+            </div>
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/non fiction1.webp" alt="Card image">
@@ -161,9 +146,7 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
-            <!-- Start Recent Work -->
+            </div>
             <div class="col-xl-3 col-md-4 col-sm-6 project branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/science and nature.avif" alt="Card image">
@@ -174,9 +157,7 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
-            <!-- Start Recent Work -->
+            </div>
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/children.jpg" alt="Card image">
@@ -187,9 +168,9 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
+            </div>
 
-            <!-- Start Recent Work -->
+            
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/technology.jpg" alt="Card image">
@@ -200,9 +181,7 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
-            <!-- Start Recent Work -->
+            </div>
             <div class="col-xl-3 col-md-4 col-sm-6 project branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/travel.jpg" alt="Card image">
@@ -213,9 +192,7 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
-            <!-- Start Recent Work -->
+            </div>
             <div class="col-xl-3 col-md-4 col-sm-6 project branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/religion1.jpg" alt="Card image">
@@ -226,9 +203,7 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
-            <!-- Start Recent Work -->
+            </div>
             <div class="col-xl-3 col-md-4 col-sm-6 project ui graphic branding">
                 <a href="#" class="service-work card border-0 text-white shadow-sm overflow-hidden mx-5 m-sm-0">
                     <img class="card-img" src="../../Assets/Images/business.webp" alt="Card image">
@@ -239,17 +214,15 @@ $currentPage = 'home';
                         </div>
                     </div>
                 </a>
-            </div><!-- End Recent Work -->
-
+            </div>
         </div>
     </section>
-    <!-- User information starts here -->
+    
     <h2 class="h2 text-center col-12 py-5 semi-bold-600">OUR USERS</h2>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
                 <?php
-                // Check if $userStatistics is set before accessing its elements
                 if (isset($userStatistics)) {
                 ?>
                     <div class="card">
@@ -257,7 +230,6 @@ $currentPage = 'home';
                             <h5 class="card-title">User Information</h5>
                             <p class="card-text"><i class='bx bxs-user'></i> Total Users: <?php echo $userStatistics['totalUsers']; ?></p>
                             <p class="card-text"><i class='bx bx-user-check'></i> Active Users: <?php echo $userStatistics['activeUsers']; ?></p>
-                            <!-- Add more information as needed -->
                         </div>
                     </div>
                 <?php
@@ -265,14 +237,10 @@ $currentPage = 'home';
                 ?>
             </div>
             <div class="col-md-6">
-                <!-- Add another card or information here -->
             </div>
         </div>
     </div>
     </section>
-    <!-- users information ends here -->
-
-    <!-- books information starts here -->
     <section>
         <h2 class="h2 text-center col-12 py-5 semi-bold-600">AVAILABLE BOOKS</h2>
         <div class="container mt-5">
@@ -304,11 +272,6 @@ $currentPage = 'home';
             </div>
         </div>
     </section>
-
-
-
-
-
     <!-- Announcement -->
     <div class="container mt-5">
         <div class="row">
@@ -344,7 +307,6 @@ $currentPage = 'home';
 
                                 The E-Library Team</p>
                         </div>
-                        <!-- Add more notifications as needed -->
                     </div>
                 </div>
             </div>

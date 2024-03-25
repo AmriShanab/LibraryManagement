@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/../LibraryManagement/Assets/CSS/style.css">
     <link rel="stylesheet" href="/../LibraryManagement/Assets/node_modules/animate.css/animate.css">
-
     <title>User Registration</title>
-
 </head>
-
 <body>
     <h2>User Registration</h2>
     <form action="" method="post" autocomplete="off">
@@ -28,29 +25,18 @@
         <select name="userType" id="userType">
             <option value="choose">Choose</option>
             <option value="Student">Student</option>
-            <option value="Staff">Staff</option>
         </select><br>
         <label for="Registration Date">Registration Date :</label>
         <input type="date" name="registrationdate">
         <button type="submit" name="submit">Register</button>
-        <!-- Your form elements... -->
-        <!-- <button type="submit" name="submit" id="submitBtn">Register</button> -->
     </form>
-    <a href="../auth/login.php">login</a>
-
-    <!-- Animated success and error messages -->
-    <!-- <div id="successMessage" class="animated fadeIn hidden">Registration Successful!</div> -->
-    <!-- <div id="errorMessage" class="animated shake hidden">Error: EMAIL Or USERNAME IS ALREADY TAKEN</div> -->
-
+    <a href="../auth/login.php">  Login</a>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('submitBtn').addEventListener('click', function(event) {
-                // Prevent the form from submitting for demonstration purposes
                 event.preventDefault();
-
-                // Simulate success and error messages for demonstration
-                showSuccessMessage(); // Call this function when registration is successful
-                showErrorMessage(); // Call this function when there is an error
+                showSuccessMessage(); 
+                showErrorMessage(); 
             });
         });
 
@@ -59,7 +45,7 @@
             successMessage.classList.remove('hidden');
             setTimeout(function() {
                 successMessage.classList.add('fadeOut');
-            }, 3000); // Hide the message after 3 seconds
+            }, 3000); 
         }
 
         function showErrorMessage() {
@@ -67,18 +53,18 @@
             errorMessage.classList.remove('hidden');
             setTimeout(function() {
                 errorMessage.classList.add('fadeOut');
-            }, 3000); // Hide the message after 3 seconds
+            }, 3000); 
         }
     </script>
 </body>
 
 </html>
-<?php
-include '../layouts/footer.php';
-?>
+ <?php
+//include '../layouts/footer.php';
+?> 
 
 <?php
-require '../../config.php';  // Adjust the relative path as needed
+require '../../config.php';  
 
 if (isset($_POST["submit"])) {
     $name = $_POST['name'];
