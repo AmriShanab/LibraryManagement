@@ -25,7 +25,7 @@
             </ol>
         </nav>
 {{-- Form Edit --}}
-            <form action="update_user" method="post">
+            <form action="/users/{$id}/update_user" method="post">
                 @csrf
                 @method('PUT')
                         <label for="name" class="form-label">Name</label>

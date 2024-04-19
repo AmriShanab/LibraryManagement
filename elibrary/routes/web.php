@@ -41,7 +41,7 @@ Route::post('/users/store_user', [UserController::class, 'store']);
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}/show_user', [UserController::class, 'show']);
 Route::get('/users/{id}/edit_user', [UserController::class, 'edit']);
-Route::put('/users/{id}/update_user', [UserController::class, 'update']);
+Route::put('/users/{id}/update_user', [UserController::class, 'update'])->name('users.update');
 Route::get('/users/{id}/delete_user', [UserController::class, 'destroy']);
 
 
@@ -53,6 +53,7 @@ Route::get('/register', [LoginController::class, 'register']);
 Route::post('/register/store', [LoginController::class, 'registerUser']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/home/student', [LoginController::class, 'student'])->name('home.student');
+Route::get('/guest', [LoginController::class, 'guest']);
 
 
 // routes for borrow section

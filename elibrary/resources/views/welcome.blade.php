@@ -24,7 +24,7 @@
                 <div class="service-header col-2 col-lg-3 text-end light-300">
                 <i class='bi bi-journal'></i>                </div>
                 <div class="service-heading col-10 col-lg-9 text-start float-end light-300">
-                    <h2 class="h3 pb-4 typo-space-line">Welcome to E-Library: Empowering Minds, Enriching Lives</h2>
+                    <h2 class="h2 pb-4 typo-space-line">Welcome to E-Library: Empowering Minds, Enriching Lives</h2>
                 </div>
             </div>
             <p class="service-footer col-10 offset-2 col-lg-9 offset-lg-3 text-start pb-3 text-muted px-2">
@@ -132,7 +132,7 @@
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">TRAVEL</span>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+                            <p class="card-text">"Discovering worlds, one page at a time."</p>
                         </div>
                     </div>
                 </a>
@@ -145,7 +145,7 @@
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">RELIGION</span>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+                            <p class="card-text">"Spiritual wisdom in written form."</p>
                         </div>
                     </div>
                 </a>
@@ -158,7 +158,7 @@
                     <div class="service-work-vertical card-img-overlay d-flex align-items-end">
                         <div class="service-work-content text-left text-light">
                             <span class="btn btn-outline-light rounded-pill mb-lg-3 px-lg-4 light-300">Business and Finance</span>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+                            <p class="card-text">"Empowering Financial Minds, Driving Growth"</p>
                         </div>
                     </div>
                 </a>

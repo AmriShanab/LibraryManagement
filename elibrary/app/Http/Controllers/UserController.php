@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index() 
+    public function index()
     {
-        $users=User::get();
-        return view('users',['users'=>$users]);
+        $users = User::get();
+        return view('users', ['users' => $users]);
     }
 
     public  function create()
@@ -31,7 +31,7 @@ class UserController extends Controller
     //         'password' => 'required',
     //         //'usertype'=>'required', // Make sure the field name matches
     //     ]);
-    
+
     //     $user = new User;
     //     $user->name = $request->name;
     //     $user->username = $request->username;
@@ -44,7 +44,7 @@ class UserController extends Controller
     //     return back()->withSuccess('User Added Successfully');
     // }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -73,18 +73,18 @@ class UserController extends Controller
         // Redirect back with success message
         return back()->with('success', 'User created successfully.');
     }
-    
+
 
     public function show($id)
     {
-        $user=User::where('id',$id)->first();
-        return view('show_user',['user'=>$user]);
+        $user = User::where('id', $id)->first();
+        return view('show_user', ['user' => $user]);
     }
 
     public function edit($id)
     {
-        $user=User::where('id',$id)->first();
-        return view('edit_user',['user'=>$user]);
+        $user = User::where('id', $id)->first();
+        return view('edit_user', ['user' => $user]);
     }
     public function update(Request $request, $id)
     {
@@ -92,10 +92,10 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
             // 'usertype'=>'required',
         ]);
-    
+
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->username = $request->username;
@@ -108,10 +108,8 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user=User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
         $user->delete();
         return back()->withSuccess('User Delete Succeful');
-
-
     }
 }

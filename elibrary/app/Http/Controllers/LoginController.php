@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\books;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -72,5 +73,11 @@ class LoginController extends Controller
     public function student()
     {
         return view('welcome');
+    }
+
+    public function guest()
+    {
+        $books = books::paginate(10); // Replace 10 with the number of items you want per page
+        return view('guest', compact('books'));
     }
 }

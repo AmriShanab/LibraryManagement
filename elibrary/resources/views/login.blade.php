@@ -63,7 +63,7 @@
                             @enderror
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Login</button><br>
-                            <button type="button" class="btn btn-primary btn-block"><a href="" style="color: white;">Login as Guest</a></button>
+                            <button type="button" class="btn btn-primary btn-block"><a href="/guest" style="color: white;">Login as Guest</a></button>
                         </form>
                         <div class="text-center mt-3">
                             <p>Don't have an account? <a href="/register" class="btn-register">Register</a></p>
