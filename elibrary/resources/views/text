@@ -1,0 +1,27 @@
+ <label for="book_id" class="form-label">Book ID</label>
+    <input type="text" name="book_id" id="book_id" class="form-control @error('book_id') is-invalid @enderror" placeholder="Enter Book ID" value="{{ old('book_id') }}">
+    @error('book_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="mb-3">
+    <label for="user_id" class="form-label">User ID</label>
+    <input type="text" name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" placeholder="Enter User ID" value="{{ old('user_id') }}">
+    @error('user_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="mb-3">
+    <label for="borrow_date" class="form-label">Borrow Date</label>
+    <input type="date" name="borrow_date" id="borrow_date" class="form-control @error('borrow_date') is-invalid @enderror" value="{{ old('borrow_date') }}">
+    @error('borrow_date')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="mb-3">
+    <label for="return_date" class="form-label">Return Date</label>
+    <input type="date" name="return_date" id="return_date" class="form-control @error('return_date') is-invalid @enderror" value="{{ old('return_date') }}">
+    @error('return_date')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>

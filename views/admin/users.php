@@ -54,8 +54,8 @@ if (!empty($users)) {}
     </div>
     <!-- Centered Add User Button -->
     <div class="container d-flex justify-content-center mt-4">
-        <button class="btn rounded-pill px-4 btn-outline-primary light-300" data-toggle="modal" data-target="#addUserModal">
-            Add User
+        <button class="btn rounded-pill px-4 btn-outline-primary light-300" data-toggle="modal" data-target="#addUserModal" >
+            <a href="create_users"></a>Add User
         </button>
     </div>
 

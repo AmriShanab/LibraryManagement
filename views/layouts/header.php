@@ -17,11 +17,7 @@
     <link rel="stylesheet" href="../../assets/css/templatemo.css">
     <link rel="stylesheet" href="../../Assets/CSS/custom.css">
     <link rel="stylesheet" href="../../Assets/CSS/card.css">
-    <style>
-        .navbar {
-            
-        }
-    </style>
+ 
     </head>
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
