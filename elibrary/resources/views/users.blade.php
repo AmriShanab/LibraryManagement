@@ -5,7 +5,7 @@
     @include('header')
 </head>
 
-<body>
+<body class="body-clr">
     <div class="container mt-5">
         <h2>User List</h2>
         <table class="table table-striped table-hover">
@@ -43,7 +43,7 @@
 </body>
 
 </html>
-@include('footer');
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

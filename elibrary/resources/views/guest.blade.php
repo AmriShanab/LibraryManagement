@@ -35,6 +35,12 @@
     top: 0;
     right: 0;
     margin: 10px;
+
+    
+}
+
+.body-clr{
+    
 }
 
 
@@ -60,9 +66,9 @@
             <li class="nav-item mx-lg-4">
                 <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="/children" data-filter=".branding">CHILDREN'S BOOKS</a>
             </li>
-            <li class="nav-item mx-lg-4">
+            {{-- <li class="nav-item mx-lg-4">
                 <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".branding">OTHERS</a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>

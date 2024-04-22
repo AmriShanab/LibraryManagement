@@ -24,7 +24,7 @@
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand h1" href="index.html">
                 <i class='bi bi-buildings-fill'></i>
-                <span class="text-dark h4">E</span> <span class="text-primary h4">Library</span>
+                <span class="text-dark h4 fw-bold">E</span> <span class="text-primary h4 fw-bold">Library</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -55,11 +55,17 @@
                                 <a class="nav-link btn-outline-primary rounded-pill px-3" href="{{ route('bookreturn.index') }}">Book Return</a>
                             </li>
                         @endif
+                        <li class="nav-item">
+                            <div id="clock-date-container" class="position-absolute top-0 end-0 p-3 text-light">
+                                <div id="clock" class="mb-2"></div>
+                                <div id="date"></div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">   
                     <a href="/login"><i class='bi bi-box-arrow-right'></i></a>
-                    <a class="nav-link" href="/../LibraryManagement/views/profile.php"><i class='bi bi-person-fill'></i></a>
+                    <a class="nav-link" href="/../LibraryManagement/views/profile.php"></a>
                 </div>
             </div>
         </div>

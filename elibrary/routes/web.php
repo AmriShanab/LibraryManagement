@@ -17,6 +17,10 @@ Route::get('/', function () {
 });
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
+Route::get('/', function () {
+    return view('welcome');
+})->middleware('auth');
+
 
 // Route for books section
 Route::get('/books', [BooksController::class, 'index'])->name('books.index');

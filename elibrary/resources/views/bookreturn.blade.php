@@ -9,17 +9,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Not Returned Books</title>
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
-    <style>
-        .past-due {
-            color: red;
-        }
-    </style>
 </head>
 
-<body>
+<body class="body-clr">
 
     <div class="container mt-4">
-        <h2>Not Returned Books</h2>
+        <h2 class="fw-bold">Not Returned Books</h2>
         <!-- Search form -->
         <form method="GET" action="{{ route('borrows.search') }}">
             <div class="form-group">

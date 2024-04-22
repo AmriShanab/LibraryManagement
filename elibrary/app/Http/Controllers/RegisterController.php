@@ -15,7 +15,6 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request data
         $validatedData = $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users',
@@ -25,10 +24,10 @@ class RegisterController extends Controller
             'registrationdate' => 'required|date',
         ]);
 
-        // Hash the password
+
         $hashedPassword = Hash::make($validatedData['password']);
 
-        // Create a new user instance
+
         $user = new User();
         $user->name = $validatedData['name'];
         $user->username = $validatedData['username'];
@@ -37,10 +36,10 @@ class RegisterController extends Controller
         $user->user_type = $validatedData['userType'];
         $user->registration_date = $validatedData['registrationdate'];
 
-        // Save the user record
+
         $user->save();
 
-        // Redirect the user after successful registration
+
         return redirect()->route('login')->with('success', 'User registered successfully. You can now log in.');
     }
 }

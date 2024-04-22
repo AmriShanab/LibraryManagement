@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Add this line to include CSRF token -->
 </head>
 
-<body>
+<body class="body-clr">
     <div class="container mt-4">
         <h2>Transaction List</h2>
 {{-- Search Bar Start --}}

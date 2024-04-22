@@ -73,13 +73,13 @@ class BooksController extends Controller
         $book = books::where('book_id', $book_id)->first();
 
         if ($request->hasFile('image')) {
-            // If image is uploaded, handle it
+
             $imageName = time() . "." . $request->image->extension();
             $request->image->move(public_path('pictures'), $imageName);
             $book->image = $imageName;
         }
 
-        // Update other fields
+
         $book->isbn = $request->isbn;
         $book->title = $request->title;
         $book->author = $request->author;

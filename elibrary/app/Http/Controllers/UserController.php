@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
@@ -91,19 +92,33 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required',
             'password' => 'required|min:6',
-            // 'usertype'=>'required',
         ]);
 
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        // Hash the password before updating
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return back()->withSuccess('User Updated Successfully');
+        // Find the user by ID
+        $user = User::find($id);
+
+        // Check if the user exists
+        if (!$user) {
+            return back()->withError('User not found.');
+        }
+        try {
+            // Update user properties
+            $user->name = $request->name;
+            $user->username = $request->username;
+            $user->email = $request->email;
+            // Hash the password before updating
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return back()->withSuccess('User Updated Successfully');
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error updating user: ' . $e->getMessage());
+            // Return an error message
+            return back()->withError('Failed to update user.');
+        }
     }
 
     public function destroy($id)

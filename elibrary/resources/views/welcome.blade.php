@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 </head>
 
-<body>
-   
+<body class="body-clr">
     <section class="service-wrapper py-3">
+
+       
+
         <div class="container-fluid pb-3">
             <div class="row">
                 <h2 class="h2 text-center col-12 py-5 semi-bold-600">e-library</h2>
@@ -36,7 +38,7 @@
             <div class="col-md-12">
                 <ul class="nav d-flex justify-content-center">
                     <li class="nav-item mx-lg-4">
-                        <a class="filter-btn nav-link btn-outline-primary active shadow rounded-pill text-light px-4 light-300" href="/fiction" data-filter=".project">Fiction</a>
+                        <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="/fiction" data-filter=".project">Fiction</a>
                     </li>
                     <li class="nav-item mx-lg-4">
                         <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="/non-fiction" data-filter=".graphic">NON-FICTION</a>
@@ -50,9 +52,9 @@
                     <li class="nav-item mx-lg-4">
                         <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="/children" data-filter=".branding">CHILDREN'S BOOKS</a>
                     </li>
-                    <li class="nav-item mx-lg-4">
+                    {{-- <li class="nav-item mx-lg-4">
                         <a class="filter-btn nav-link btn-outline-primary rounded-pill text-light px-4 light-300" href="#" data-filter=".branding">OTHERS</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -166,7 +168,7 @@
 
         </div>
 
-    <!-- Announcement -->
+    {{-- <!-- Announcement -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -206,15 +208,39 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            // Format hours, minutes, and seconds with leading zeros
+            hours = String(hours).padStart(2, '0');
+            minutes = String(minutes).padStart(2, '0');
+            seconds = String(seconds).padStart(2, '0');
+            // Update the clock display
+            $('#clock').text(hours + ':' + minutes + ':' + seconds);
+        }
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+    });
+</script>
 </body>
  
 
 </html>
+<!-- Clock jQuery script -->
+
+
 
 @endsection
 

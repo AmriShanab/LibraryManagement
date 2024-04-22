@@ -21,18 +21,12 @@ class LoginController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Retrieve the authenticated user
             $user = Auth::user();
-
-            // Check the user_type
             if ($user->user_type === 'Student') {
-                // Redirect to student dashboard
                 return redirect()->route('home.student');
             } elseif ($user->user_type === 'Staff') {
-                // Redirect to staff dashboard or index page
                 return redirect()->route('home.index');
             } else {
-                // Handle other user types or scenarios
                 return redirect()->route('login')->with('error', 'Invalid user type');
             }
         } else {
@@ -48,7 +42,6 @@ class LoginController extends Controller
 
     public function registerUser(Request $request)
     {
-        // Validate the incoming request data
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users',
@@ -57,7 +50,6 @@ class LoginController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        // Create and save the new user
         $user = new User;
         $user->name = $request->name;
         $user->username = $request->username;
@@ -65,8 +57,6 @@ class LoginController extends Controller
         $user->user_type = $request->usertype;
         $user->password = Hash::make($request->password);
         $user->save();
-
-        // Redirect back with success message
         return back()->with('success', 'User created successfully.');
     }
 
@@ -77,7 +67,7 @@ class LoginController extends Controller
 
     public function guest()
     {
-        $books = books::paginate(10); // Replace 10 with the number of items you want per page
+        $books = books::paginate(10);
         return view('guest', compact('books'));
     }
 }
