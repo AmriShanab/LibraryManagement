@@ -18,17 +18,18 @@ class BookReturnController extends Controller
 
         $borrows = BookBorrow::findOrFail($request->id);
         $borrows->status = $request->status;
-        $borrows->save();
 
-
-        if ($request->status === 'Returned') {
-            $book = books::findOrFail($borrows->book_id);
-            $book->quantity++;
+        if ($request->status === 'returned') { // Corrected the typo here
+            $book = books::findOrFail($borrows->book_id); // Corrected the model name to 'Book'
+            $book->quantity += 1; // Increment the book quantity when returned
             $book->save();
         }
 
+        $borrows->save();
+
         return response()->json(['status' => 'success']);
     }
+
 
 
 

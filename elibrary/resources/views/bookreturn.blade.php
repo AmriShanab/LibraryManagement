@@ -14,7 +14,7 @@
 <body class="body-clr">
 
     <div class="container mt-4">
-        <h2 class="fw-bold">Not Returned Books</h2>
+        <h2 class="fw-bold">Not Returned Books</h2> 
         <!-- Search form -->
         <form method="GET" action="{{ route('borrows.search') }}">
             <div class="form-group">
@@ -90,7 +90,7 @@
                     },
                     success: function(response) {
                         if (response.status === 'success') {
-                            alert('Status updated successfully!');
+                            alert('Book Returned Succesfully!');
                             location.reload();
                         } else {
                             alert('Failed to update status.');

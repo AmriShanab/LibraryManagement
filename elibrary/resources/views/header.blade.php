@@ -49,8 +49,13 @@
                                 </li>
                             @endif
                             <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="{{ route('borrow.index') }}">Book Borrow</a>
+                                @if(auth()->user()->user_type === 'Student')
+                                    <a class="nav-link btn-outline-primary rounded-pill px-3" href="/borrow/create_book_borrow">Book Borrow</a>
+                                @else
+                                    <a class="nav-link btn-outline-primary rounded-pill px-3" href="{{ route('borrow.index') }}">Book Borrow</a>
+                                @endif
                             </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link btn-outline-primary rounded-pill px-3" href="{{ route('bookreturn.index') }}">Book Return</a>
                             </li>

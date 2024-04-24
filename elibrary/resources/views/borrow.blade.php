@@ -28,7 +28,13 @@
                     <td>{{$bookBorrow->title}}</td>
                     <td>{{$bookBorrow->borrow_date}}</td>
                     <td>{{$bookBorrow->return_date}}</td>
-                    <td>{{$bookBorrow->status}}</td>
+                    <td>
+                        @if($bookBorrow->status == 'returned')
+                            <span class="badge bg-success">Returned</span>
+                        @else
+                            <span class="badge bg-danger">Not Returned</span>
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

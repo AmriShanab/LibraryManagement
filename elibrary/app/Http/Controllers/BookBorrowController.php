@@ -34,7 +34,7 @@ class BookBorrowController extends Controller
 
         $borrowDate = Carbon::createFromFormat('Y-m-d', $request->borrow_date);
         $returnDate = Carbon::createFromFormat('Y-m-d', $request->return_date);
-        $borrowDays = $returnDate->diffInDays($borrowDate);
+        $borrowDays = abs($returnDate->diffInDays($borrowDate));
         $borrowAmount = $borrowDays * 50;
 
         $borrow = new BookBorrow;

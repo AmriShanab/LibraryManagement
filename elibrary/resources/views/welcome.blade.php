@@ -223,14 +223,13 @@
             var hours = now.getHours();
             var minutes = now.getMinutes();
             var seconds = now.getSeconds();
-            // Format hours, minutes, and seconds with leading zeros
             hours = String(hours).padStart(2, '0');
             minutes = String(minutes).padStart(2, '0');
             seconds = String(seconds).padStart(2, '0');
-            // Update the clock display
+            
             $('#clock').text(hours + ':' + minutes + ':' + seconds);
         }
-        // Update the clock every second
+      
         setInterval(updateClock, 1000);
     });
 </script>
